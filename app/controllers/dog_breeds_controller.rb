@@ -10,8 +10,17 @@ class DogBreedsController < ApplicationController
     breed = params[:breed]
     return render json: { error: 'Breed parameter is required.' }, status: :bad_request if breed.blank?
 
-    fetcher = DogBreedImageFetcher.new(breed)
-    response = fetcher.fetch_image
-    render json: response, status: response[:error].present? ? :not_found : :ok
+    begin
+      fetcher = DogBreedImageFetcher.new(breed)
+      response = fetcher.fetch_image
+
+      if response[:error].present?
+        render json: response, status: :not_found
+      else
+        render json: response, status: :ok
+      end
+    rescue StandardError => e
+      render json: { error: 'An unexpected error occurred. Please try again later.' }, status: :internal_server_error
+    end
   end
 end
