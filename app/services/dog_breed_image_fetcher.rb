@@ -1,25 +1,21 @@
 class DogBreedImageFetcher
-  require 'net/http'
-  require 'uri'
-  require 'json'
-
+  API_BASE_URL = 'https://dog.ceo/api'.freeze
+  
   attr_reader :breed
 
   def initialize(breed)
-    @breed = breed.downcase.gsub(/\s+/, "")
+    @breed = breed.downcase.gsub(/\s+/, '')
   end
 
   def fetch_image
-    url = URI("https://dog.ceo/api/breed/#{@breed}/images/random")
-    response = Net::HTTP.get_response(url)
+    response = Net::HTTP.get_response(URI("#{API_BASE_URL}/breed/#{@breed}/images/random"))
     parse_response(response)
   rescue StandardError
     { error: 'An unexpected error occurred. Please try again later.' }
   end
 
   def self.fetch_breeds
-    url = URI("https://dog.ceo/api/breeds/list/all")
-    response = Net::HTTP.get_response(url)
+    response = Net::HTTP.get_response(URI("#{API_BASE_URL}/breeds/list/all"))
     if response.is_a?(Net::HTTPSuccess)
       JSON.parse(response.body)['message'].keys
     else

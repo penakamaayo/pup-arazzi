@@ -11,13 +11,13 @@ RSpec.describe DogBreedsController, type: :controller do
 
     context "when format is JSON" do
       before do
-        allow(DogBreedImageFetcher).to receive(:fetch_breeds).and_return(["pug", "bulldog"])
+        allow(DogBreedImageFetcher).to receive(:fetch_breeds).and_return(["pug", "poodle"])
       end
 
       it "should return a list of breeds" do
         get :index, format: :json
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)).to eq(["pug", "bulldog"])
+        expect(JSON.parse(response.body)).to eq(["pug", "poodle"])
       end
     end
   end
@@ -32,7 +32,7 @@ RSpec.describe DogBreedsController, type: :controller do
     end
 
     context "when breed parameter is provided" do
-      let(:breed) { "bulldog" }
+      let(:breed) { "poodle" }
       let(:fetcher) { instance_double(DogBreedImageFetcher) }
 
       before do
