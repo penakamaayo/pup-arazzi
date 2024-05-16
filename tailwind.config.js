@@ -3,6 +3,7 @@ module.exports = {
     './public/*.html',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
+    './app/javascript/**/*.tsx',
     './app/views/**/*',
   ],
   theme: {
