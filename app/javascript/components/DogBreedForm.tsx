@@ -110,7 +110,7 @@ const DogBreedForm: React.FC = () => {
             value={breed}
             onChange={handleChange}
             className="w-full h-16 border-black border-2 p-2.5 focus:outline-none focus:shadow-[0_0_5px_3px_#caff04] active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
-            placeholder="Shih Tzu, Golden Retriever, Japanese Spitz.."
+            placeholder="eg. Shih Tzu, Poodle, Bulldog.."
             required
           />
 
@@ -143,12 +143,11 @@ const DogBreedForm: React.FC = () => {
           </div>
         )}
         {result.error && <p className="mt-4 text-red-500">{result.error}</p>}
-        {result.image ? (
+        {result.image && !loading ? (
           <div className="mt-4 max-h-screen">
             <h3 className="text-4xl mb-2 text-primary">{result.breed}</h3>
             <img
               src={result.image}
-              alt="Dog breed"
               className="w-full border-2 border-black md:h-[500px] object-cover"
             />
           </div>

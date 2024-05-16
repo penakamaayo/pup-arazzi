@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+
 class DogBreedImageFetcher
   API_BASE_URL = 'https://dog.ceo/api'.freeze
   
